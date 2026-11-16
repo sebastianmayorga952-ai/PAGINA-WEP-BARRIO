@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTENIDO_PAGINA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+
+    <h3>contenido de pagina</h3>
+
+    <form action="{{request.path}}" method="POST">
+
+<!--CONTROLES: NOMBRE, EMAIL, CODIGO-->
+
+            <div>
+                <label for="NOMBRE">NOMBRE</label>
+                <input type="text" id="NOMBRE" name="NOMBRE" />
+            </div>
+
+            <div>
+                <label for="EMAIL">EMAIL</label>
+                <input type="email" id="EMAIL" name="EMAIL" />
+            </div>
+
+            <div>
+                <label for="CODIGO">CODIGO</label>
+                <input type="text" id="CODIGO" name="CODIGO" />
+            </div>
+        
+        <input type="submit" value="Enviar"/>
+
+
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</body>
+</html>
