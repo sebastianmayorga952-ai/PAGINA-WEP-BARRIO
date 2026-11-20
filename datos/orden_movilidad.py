@@ -1,0 +1,13 @@
+from datos_de_barrio import datos_de_barrio
+
+def obtener_datos_orden():
+    return [
+        datos_de_barrio("movilidad", "Vía Principal de Acceso", "Avenida Jorge Gaitán Cortés (Carrera 51)", "Corredor vial importante que permite la conexión directa del entorno de La Coruña con otros sectores del sur de Bogotá y rutas de transporte.", "Avenida Carrera 51, La Coruña", "Alcaldía Local de Ciudad Bolívar / Recorridos viales", "", 4.5778, -74.1535),
+        datos_de_barrio("movilidad", "Corredor Arterial Metropolitano", "Avenida Ciudad de Villavicencio", "Corredor arterial del suroccidente de Bogotá que facilita la conexión de Ciudad Bolívar con otras localidades (no es calle interna del barrio).", "Avenida Ciudad de Villavicencio, Ciudad Bolívar", "Alcaldía Local de Ciudad Bolívar", "", 4.5815, -74.1510),
+        datos_de_barrio("movilidad", "Corredor Arterial Metropolitano", "Autopista Sur", "Conexión principal con el sur de Bogotá y el municipio de Soacha, desde donde se enlaza hacia las vías de acceso a La Coruña.", "Autopista Sur, Bogotá", "Alcaldía Local de Ciudad Bolívar", "", 4.5880, -74.1580),
+        datos_de_barrio("movilidad", "Vías Locales de Ingreso", "Acceso Local Carrera 48B con Calle 58G Sur", "Punto de referencia recomendado para navegación e ingreso directo al sector residencial de La Coruña.", "Carrera 48B con Calle 58G Sur", "Cartografía y referencia geográfica local", "", 4.5782, -74.1521),
+        datos_de_barrio("movilidad", "Paradero SITP Zonal (Cód. 448A10)", "Paradero SITP: Br. La Coruña", "Paradero oficial del sistema SITP zonal (código reportado: 448A10) para acceso directo al barrio.", "Cra. 48G con Cl. 58G Sur", "Inventario de transporte público / SITP", "", 4.5783, -74.1528),
+        datos_de_barrio("movilidad", "Paradero SITP Zonal (Cód. 014A10)", "Paradero SITP: Pq. La Coruña", "Paradero oficial del sistema SITP zonal (código reportado: 014A10) asociado al entorno del parque y la Av. Jorge Gaitán Cortés.", "Av. Jorge Gaitán Cortés con Cl. 58A Sur", "Inventario de transporte público / SITP", "", 4.5787, -74.1533),
+        datos_de_barrio("movilidad", "Paradero SITP Zonal (Cód. 073A10)", "Paradero SITP: Br. El Ensueño", "Paradero oficial del sistema SITP zonal (código reportado: 073A10) en el corredor límite La Coruña – El Ensueño.", "Cl. 59C Sur, La Coruña", "Inventario de transporte público / SITP", "", 4.5775, -74.1536),
+        datos_de_barrio("movilidad", "Paradero SITP Zonal (Cód. pendiente)", "Paradero SITP: Urb. Kalamary", "Paradero del sistema SITP zonal ubicado sobre el corredor vial de la Avenida Carrera 51 (código por confirmar).", "Avenida Carrera 51, La Coruña", "Inventario de transporte público / SITP", "", 4.5769, -74.1538),
+    ]

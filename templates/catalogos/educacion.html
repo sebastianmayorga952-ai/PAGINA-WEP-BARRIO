@@ -1,0 +1,27 @@
+<div id="catalogo-turistica" class="catalogo-panel cuadro-principal p-4" style="display: none;">
+    <div class="d-flex justify-content-between align-items-center border-bottom border-2 border-dark pb-2 mb-3">
+        <div>
+            <h4 class="fw-bold mb-0" style="color: #6f42c1;">Catálogo: Equipamientos Educativos, Comunidad y Referentes</h4>
+            <small class="text-muted">Instituciones educativas, Junta de Acción Comunal e historia del barrio</small>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary" onclick="cerrarCatalogo()">Cerrar catálogo ✕</button>
+    </div>
+    <div class="row g-3">
+        {% for dato in datos if dato.categoria in ['referencia', 'historia'] %}
+        <div class="col-md-4 item-catalogo" data-texto="{{ dato.nombre|lower }} {{ dato.subcategoria|lower }} {{ dato.descripcion|lower }}">
+            <div class="card h-100 {% if 'Pendiente' in dato.subcategoria %}border-warning{% endif %}">
+                <div class="card-body">
+                    <span class="badge {% if 'Pendiente' in dato.subcategoria %}bg-warning text-dark{% else %}bg-dark{% endif %} mb-2">{{ dato.subcategoria }}</span>
+                    <h6 class="card-title fw-bold">{{ dato.nombre }}</h6>
+                    <p class="card-text small">{{ dato.descripcion }}</p>
+                </div>
+                <div class="card-footer bg-white small">
+                    <div class="text-muted mb-1"><strong>Ubicación:</strong> {{ dato.ubicacion }}</div>
+                    <div class="text-muted mb-2" style="font-size: 0.72rem;"><strong>Fuente:</strong> {{ dato.fuente_o_dato }}</div>
+                    <button class="btn btn-sm btn-outline-primary w-100" data-nombre="{{ dato.nombre }}" data-subcategoria="{{ dato.subcategoria }}" data-descripcion="{{ dato.descripcion }}" data-ubicacion="{{ dato.ubicacion }}" data-fuente="{{ dato.fuente_o_dato }}" data-lat="{{ dato.latitud }}" data-lng="{{ dato.longitud }}" data-subir="true" onclick="enfocarDesdeElemento(this)">📍 Ver en Google Maps</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

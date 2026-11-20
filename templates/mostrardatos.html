@@ -3,91 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Guía Interactiva de Mi Barrio - Google Maps</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Barrio La Coruña - Guía Interactiva (Ciudad Bolívar)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background-color: #f4f6f9;
-        }
-        .cuadro-principal {
-            background-color: #ffffff;
-            border: 2px solid #212529;
-            border-radius: 12px;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-        }
-        .caja-panel {
-            border: 1.5px solid #495057;
-            border-radius: 10px;
-            background-color: #f8f9fa;
-            height: 100%;
-        }
-        .marco-google-maps {
-            width: 100%;
-            height: 310px;
-            border: 2px solid #212529;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: #e9ecef;
-        }
-        .btn-categoria-principal {
-            border: 2px solid #212529;
-            border-radius: 10px;
-            background-color: #ffffff;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            user-select: none;
-        }
-        .btn-categoria-principal:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.12);
-            background-color: #f8f9fa;
-        }
-        .btn-categoria-principal.activo {
-            background-color: #212529;
-            color: #ffffff;
-        }
-        .btn-categoria-principal.activo small {
-            color: #ced4da !important;
-        }
-        .croquis-box {
-            border: 1.5px dashed #6c757d;
-            border-radius: 8px;
-            background-color: #ffffff;
-            padding: 8px;
-        }
-        .chip-lugar {
-            cursor: pointer;
-            font-size: 0.74rem;
-            border: 1px solid #adb5bd;
-            background: #fff;
-            color: #212529;
-            border-radius: 20px;
-            padding: 2px 9px;
-            transition: all 0.15s;
-        }
-        .chip-lugar:hover {
-            background: #212529;
-            color: #fff;
-        }
+        body { background-color: #f4f6f9; }
+        .cuadro-principal { background-color: #ffffff; border: 2px solid #212529; border-radius: 12px; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08); }
+        .caja-panel { border: 1.5px solid #495057; border-radius: 10px; background-color: #f8f9fa; height: 100%; }
+        .marco-google-maps { width: 100%; height: 310px; border: 2px solid #212529; border-radius: 8px; overflow: hidden; background-color: #e9ecef; }
+        .btn-categoria-principal { border: 2px solid #212529; border-radius: 10px; background-color: #ffffff; cursor: pointer; transition: all 0.2s ease; user-select: none; }
+        .btn-categoria-principal:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.12); background-color: #f8f9fa; }
+        .btn-categoria-principal.activo { background-color: #212529; color: #ffffff; }
+        .btn-categoria-principal.activo small { color: #ced4da !important; }
+        .croquis-box { border: 1.5px dashed #6c757d; border-radius: 8px; background-color: #ffffff; padding: 8px; }
+        .chip-lugar { cursor: pointer; font-size: 0.72rem; border: 1px solid #adb5bd; background: #fff; color: #212529; border-radius: 20px; padding: 2px 8px; transition: all 0.15s; }
+        .chip-lugar:hover { background: #212529; color: #fff; }
+        .contenedor-chips { max-height: 75px; overflow-y: auto; }
     </style>
 </head>
 <body>
-
     <div class="container my-3">
-
-        <!-- CUADRO GRANDE PRINCIPAL -->
         <div class="cuadro-principal p-3 p-md-4">
-
-            <!-- BARRA SUPERIOR CON TÍTULO, BUSCADOR (LUPA Q) Y AGREGAR -->
             <div class="row align-items-center border-bottom border-2 border-dark pb-3 mb-3 g-2">
                 <div class="col-md-5">
-                    <h4 class="fw-bold mb-0">Barrio [Nombre de Tu Barrio]</h4>
-                    <small class="text-muted">Guía Digital Conectada con Google Maps</small>
+                    <h4 class="fw-bold mb-0">Barrio La Coruña – Bogotá D. C.</h4>
+                    <small class="text-muted">Localidad Ciudad Bolívar (19) · UPZ Arborizadora (65) · CP 111911</small>
                 </div>
                 <div class="col-md-4">
                     <div class="input-group input-group-sm">
-                        <input type="text" id="inputBuscador" class="form-control border-dark" placeholder="Buscar parque, comida, vía o lugar..." onkeyup="buscarEnCatalogo()">
-                        <button class="btn btn-dark" type="button" onclick="buscarEnCatalogo()" title="Buscar">Q</button>
+                        <input type="text" id="inputBuscador" class="form-control border-dark" placeholder="Buscar restaurante, tienda, colegio, paradero..." onkeyup="buscarEnCatalogo()">
+                        <button class="btn btn-dark" type="button" onclick="buscarEnCatalogo()">Q</button>
                     </div>
                 </div>
                 <div class="col-md-3 text-md-end">
@@ -96,67 +40,41 @@
                 </div>
             </div>
 
-            <!-- FILA CENTRAL DE 3 COLUMNAS -->
             <div class="row g-3 mb-4">
-
-                <!-- 1. IZQUIERDA: INFO GENERAL DEL BARRIO -->
                 <div class="col-lg-3">
                     <div class="caja-panel p-3 d-flex flex-column justify-content-between">
                         <div>
-                            <span class="badge bg-warning text-dark mb-2">Versión Inicial</span>
+                            <span class="badge bg-primary mb-2">Ciudad Bolívar · UPZ 65</span>
                             <h6 class="fw-bold text-uppercase border-bottom pb-2">Info General del Barrio</h6>
-                            <p class="small mb-2">
-                                Territorio residencial y comercial con espacios comunitarios, zonas verdes y corredores viales principales.
-                            </p>
-                            <p class="small text-muted mb-2">
-                                <strong>Propósito:</strong> Ubicar en Google Maps los servicios, comercios, historia y puntos clave del sector.
-                            </p>
+                            <p class="small mb-2">Sector urbano residencial en el suroccidente de Bogotá (Arborizadora). Combina vivienda, comercio de proximidad, recreación y organización comunitaria.</p>
+                            <ul class="small ps-3 mb-2">
+                                <li><strong>Componentes:</strong> Residencial, Comercial, Recreativo y Comunitario (JAC).</li>
+                                <li><strong>Punto ref.:</strong> Cra 48B con Calle 58G Sur.</li>
+                                <li><strong>Coord. centro:</strong> 4.578193, -74.152101</li>
+                            </ul>
                         </div>
                         <div class="bg-white border rounded p-2 small">
-                            <strong>Lugares registrados:</strong> {{ datos|length }} puntos<br>
-                            <span class="text-muted">Selecciona un cuadro inferior para desplegar su catálogo.</span>
+                            <strong>Inventario registrado:</strong> {{ datos|length }} puntos<br>
+                            <span class="text-muted" style="font-size: 0.72rem;">*Coordenadas de referencia aproximada del sector.</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- 2. CENTRO: INTERACTIVO DE MAPA (GOOGLE MAPS) -->
                 <div class="col-lg-6">
                     <div class="caja-panel p-3">
                         <div class="d-flex justify-content-between align-items-center mb-2">
                             <h6 class="fw-bold text-uppercase mb-0">Interactivo de Mapa (Google Maps)</h6>
-                            <span class="badge bg-primary" id="etiquetaMapaActivo">Sector General</span>
+                            <span class="badge bg-primary" id="etiquetaMapaActivo">Barrio La Coruña</span>
                         </div>
-
                         <div class="marco-google-maps">
-                            <iframe
-                                id="iframeGoogleMaps"
-                                width="100%"
-                                height="100%"
-                                style="border:0;"
-                                loading="lazy"
-                                allowfullscreen
-                                referrerpolicy="no-referrer-when-downgrade"
-                                src="https://maps.google.com/maps?q=4.6097,-74.0817&z=16&output=embed">
-                            </iframe>
+                            <iframe id="iframeGoogleMaps" width="100%" height="100%" style="border:0;" loading="lazy" allowfullscreen src="https://maps.google.com/maps?q=4.578193,-74.152101&z=16&output=embed"></iframe>
                         </div>
-
                         <div class="mt-2">
-                            <small class="text-muted fw-bold d-block mb-1">Puntos rápidos en Google Maps:</small>
-                            <div class="d-flex flex-wrap gap-1" id="listaChipsMapa">
+                            <small class="text-muted fw-bold d-block mb-1">Puntos del inventario en Google Maps:</small>
+                            <div class="d-flex flex-wrap gap-1 contenedor-chips">
                                 {% for dato in datos %}
-                                <span class="chip-lugar"
-                                      data-categoria="{{ dato.categoria }}"
-                                      data-nombre="{{ dato.nombre }}"
-                                      data-nombre-busqueda="{{ dato.nombre|lower }}"
-                                      data-subcategoria="{{ dato.subcategoria }}"
-                                      data-descripcion="{{ dato.descripcion }}"
-                                      data-ubicacion="{{ dato.ubicacion }}"
-                                      data-fuente="{{ dato.fuente_o_dato }}"
-                                      data-lat="{{ dato.latitud }}"
-                                      data-lng="{{ dato.longitud }}"
-                                      data-subir="false"
-                                      onclick="enfocarDesdeElemento(this)">
-                                    📍 {{ dato.nombre[:20] }}{% if dato.nombre|length > 20 %}...{% endif %}
+                                <span class="chip-lugar" data-categoria="{{ dato.categoria }}" data-nombre="{{ dato.nombre }}" data-nombre-busqueda="{{ dato.nombre|lower }} {{ dato.subcategoria|lower }}" data-subcategoria="{{ dato.subcategoria }}" data-descripcion="{{ dato.descripcion }}" data-ubicacion="{{ dato.ubicacion }}" data-fuente="{{ dato.fuente_o_dato }}" data-lat="{{ dato.latitud }}" data-lng="{{ dato.longitud }}" data-subir="false" onclick="enfocarDesdeElemento(this)">
+                                    📍 {{ dato.nombre[:22] }}{% if dato.nombre|length > 22 %}...{% endif %}
                                 </span>
                                 {% endfor %}
                             </div>
@@ -164,354 +82,64 @@
                     </div>
                 </div>
 
-                <!-- 3. DERECHA: CROQUIS BARRIO Y DETALLE -->
                 <div class="col-lg-3">
                     <div class="caja-panel p-3 d-flex flex-column justify-content-between">
                         <div>
-                            <h6 class="fw-bold text-uppercase border-bottom pb-2">Croquis Barrio</h6>
-                            <div class="croquis-box text-center mb-2">
-                                <svg width="100%" height="85" viewBox="0 0 200 100">
-                                    <polygon points="20,15 175,10 185,85 30,90" fill="#e9ecef" stroke="#212529" stroke-width="2"/>
-                                    <line x1="25" y1="50" x2="180" y2="50" stroke="#0d6efd" stroke-width="3"/>
-                                    <line x1="100" y1="12" x2="100" y2="88" stroke="#6c757d" stroke-width="2" stroke-dasharray="4"/>
-                                    <circle cx="100" cy="50" r="6" fill="#dc3545"/>
-                                    <text x="108" y="45" font-size="9" fill="#212529">Centro</text>
-                                </svg>
-                                <small class="text-muted d-block" style="font-size: 0.7rem;">Esquema de referencia del sector</small>
+                            <h6 class="fw-bold text-uppercase border-bottom pb-2">Croquis / Conectividad</h6>
+                            <div class="croquis-box mb-2 small">
+                                <div class="text-center text-muted mb-1" style="font-size: 0.72rem;"><em>(Polígono oficial pendiente)</em></div>
+                                <div class="border-start border-3 border-primary ps-2" style="font-size: 0.75rem;">
+                                    <strong>1. Red Arterial:</strong> Autopista Sur · Av. Villavicencio<br>
+                                    <strong>2. Conexión sector:</strong> Av. Jorge Gaitán Cortés (Cra 51)<br>
+                                    <strong>3. Vías locales:</strong> Cra 48B / 48G · Cll 58C / 58G Sur
+                                </div>
                             </div>
                         </div>
-
                         <div class="bg-white border border-dark rounded p-2" id="panelCroquisDetalle">
-                            <small class="fw-bold d-block text-primary">Detalle del lugar:</small>
-                            <small class="text-muted">Haz clic en cualquier punto o tarjeta para verlo en Google Maps y leer su ficha.</small>
+                            <small class="fw-bold d-block text-primary">Ficha del punto seleccionado:</small>
+                            <small class="text-muted">Haz clic en cualquier punto o tarjeta para centrarlo en Google Maps.</small>
                         </div>
                     </div>
                 </div>
-
             </div>
 
-            <!-- FILA INFERIOR: LOS 4 CUADROS PRINCIPALES -->
             <div class="row g-3 text-center">
                 <div class="col-6 col-md-3">
                     <div class="btn-categoria-principal p-3 h-100" id="btn-recreacion" onclick="abrirCatalogo('recreacion')">
                         <h6 class="fw-bold text-uppercase mb-1">Recreación</h6>
-                        <small class="text-muted d-block">Canchas, coliseos, parques</small>
+                        <small class="text-muted d-block">Parque vecinal y cancha pública</small>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="btn-categoria-principal p-3 h-100" id="btn-comidas" onclick="abrirCatalogo('comidas')">
-                        <h6 class="fw-bold text-uppercase mb-1">Comidas</h6>
-                        <small class="text-muted d-block">Restaurantes, puestos, comercio</small>
+                        <h6 class="fw-bold text-uppercase mb-1">Comidas y Comercio</h6>
+                        <small class="text-muted d-block">10 restaurantes, 5 tiendas, 3 C.C.</small>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="btn-categoria-principal p-3 h-100" id="btn-turistica" onclick="abrirCatalogo('turistica')">
-                        <h6 class="fw-bold text-uppercase mb-1">Turística</h6>
-                        <small class="text-muted d-block">Historia, referentes, cultura</small>
+                        <h6 class="fw-bold text-uppercase mb-1">Educación y Referentes</h6>
+                        <small class="text-muted d-block">Liceo La Coruña, Guatiquía y JAC</small>
                     </div>
                 </div>
                 <div class="col-6 col-md-3">
                     <div class="btn-categoria-principal p-3 h-100" id="btn-orden" onclick="abrirCatalogo('orden')">
                         <h6 class="fw-bold text-uppercase mb-1">Tipo de Orden</h6>
-                        <small class="text-muted d-block">Vías, conjuntos, seguridad</small>
+                        <small class="text-muted d-block">Vías de acceso y 4 paraderos SITP</small>
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <!-- SECCIÓN DESPLEGABLE DE CATÁLOGOS -->
         <div id="contenedorCatalogo" class="mt-4" style="display: none;">
-
-            <!-- CATÁLOGO 1: RECREACIÓN -->
-            <div id="catalogo-recreacion" class="catalogo-panel cuadro-principal p-4" style="display: none;">
-                <div class="d-flex justify-content-between align-items-center border-bottom border-2 border-success pb-2 mb-3">
-                    <div>
-                        <h4 class="fw-bold text-success mb-0">Catálogo: Recreación y Espacios Públicos</h4>
-                        <small class="text-muted">Canchas • Coliseos • Parques • Zonas verdes • Gimnasios al aire libre</small>
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary" onclick="cerrarCatalogo()">Cerrar catálogo ✕</button>
-                </div>
-                <div class="row g-3">
-                    {% for dato in datos if dato.categoria == 'recreacion' %}
-                    <div class="col-md-4 item-catalogo" data-texto="{{ dato.nombre|lower }} {{ dato.subcategoria|lower }} {{ dato.descripcion|lower }}">
-                        <div class="card h-100 border-success">
-                            {% if dato.imagen_url %}
-                            <img src="{{ dato.imagen_url }}" class="card-img-top" alt="{{ dato.nombre }}" style="height: 150px; object-fit: cover;">
-                            {% endif %}
-                            <div class="card-body">
-                                <span class="badge bg-success mb-2">{{ dato.subcategoria }}</span>
-                                <h6 class="card-title fw-bold">{{ dato.nombre }}</h6>
-                                <p class="card-text small">{{ dato.descripcion }}</p>
-                            </div>
-                            <div class="card-footer bg-white small">
-                                <div class="text-muted mb-2"><strong>Ubicación:</strong> {{ dato.ubicacion }}</div>
-                                <button class="btn btn-sm btn-outline-success w-100"
-                                        data-nombre="{{ dato.nombre }}"
-                                        data-subcategoria="{{ dato.subcategoria }}"
-                                        data-descripcion="{{ dato.descripcion }}"
-                                        data-ubicacion="{{ dato.ubicacion }}"
-                                        data-fuente="{{ dato.fuente_o_dato }}"
-                                        data-lat="{{ dato.latitud }}"
-                                        data-lng="{{ dato.longitud }}"
-                                        data-subir="true"
-                                        onclick="enfocarDesdeElemento(this)">
-                                    📍 Ver en Google Maps
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <!-- CATÁLOGO 2: COMIDAS Y COMERCIO -->
-            <div id="catalogo-comidas" class="catalogo-panel cuadro-principal p-4" style="display: none;">
-                <div class="d-flex justify-content-between align-items-center border-bottom border-2 border-warning pb-2 mb-3">
-                    <div>
-                        <h4 class="fw-bold text-dark mb-0">Catálogo: Comidas y Establecimientos Comerciales</h4>
-                        <small class="text-muted">Restaurantes • Puestos callejeros • Cafeterías y panaderías • Tiendas locales</small>
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary" onclick="cerrarCatalogo()">Cerrar catálogo ✕</button>
-                </div>
-                <div class="row g-3">
-                    {% for dato in datos if dato.categoria == 'gastronomia' %}
-                    <div class="col-md-4 item-catalogo" data-texto="{{ dato.nombre|lower }} {{ dato.subcategoria|lower }} {{ dato.descripcion|lower }}">
-                        <div class="card h-100 border-warning">
-                            {% if dato.imagen_url %}
-                            <img src="{{ dato.imagen_url }}" class="card-img-top" alt="{{ dato.nombre }}" style="height: 150px; object-fit: cover;">
-                            {% endif %}
-                            <div class="card-body">
-                                <span class="badge bg-warning text-dark mb-2">{{ dato.subcategoria }}</span>
-                                <h6 class="card-title fw-bold">{{ dato.nombre }}</h6>
-                                <p class="card-text small">{{ dato.descripcion }}</p>
-                            </div>
-                            <div class="card-footer bg-white small">
-                                <div class="text-muted mb-2"><strong>Ubicación:</strong> {{ dato.ubicacion }}</div>
-                                <button class="btn btn-sm btn-outline-dark w-100"
-                                        data-nombre="{{ dato.nombre }}"
-                                        data-subcategoria="{{ dato.subcategoria }}"
-                                        data-descripcion="{{ dato.descripcion }}"
-                                        data-ubicacion="{{ dato.ubicacion }}"
-                                        data-fuente="{{ dato.fuente_o_dato }}"
-                                        data-lat="{{ dato.latitud }}"
-                                        data-lng="{{ dato.longitud }}"
-                                        data-subir="true"
-                                        onclick="enfocarDesdeElemento(this)">
-                                    📍 Ver en Google Maps
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <!-- CATÁLOGO 3: TURÍSTICA -->
-            <div id="catalogo-turistica" class="catalogo-panel cuadro-principal p-4" style="display: none;">
-                <div class="d-flex justify-content-between align-items-center border-bottom border-2 border-dark pb-2 mb-3">
-                    <div>
-                        <h4 class="fw-bold mb-0" style="color: #6f42c1;">Catálogo: Ruta Turística, Puntos de Referencia e Historia</h4>
-                        <small class="text-muted">Sitios emblemáticos • Iglesias y colegios • Origen, evolución y relatos del barrio</small>
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary" onclick="cerrarCatalogo()">Cerrar catálogo ✕</button>
-                </div>
-                <div class="row g-3">
-                    {% for dato in datos if dato.categoria in ['referencia', 'historia'] %}
-                    <div class="col-md-4 item-catalogo" data-texto="{{ dato.nombre|lower }} {{ dato.subcategoria|lower }} {{ dato.descripcion|lower }}">
-                        <div class="card h-100">
-                            <div class="card-body">
-                                <span class="badge bg-dark mb-2">{{ dato.subcategoria }}</span>
-                                <h6 class="card-title fw-bold">{{ dato.nombre }}</h6>
-                                <p class="card-text small">{{ dato.descripcion }}</p>
-                            </div>
-                            <div class="card-footer bg-white small">
-                                <div class="text-muted mb-2"><strong>Ubicación:</strong> {{ dato.ubicacion }}</div>
-                                <button class="btn btn-sm btn-outline-primary w-100"
-                                        data-nombre="{{ dato.nombre }}"
-                                        data-subcategoria="{{ dato.subcategoria }}"
-                                        data-descripcion="{{ dato.descripcion }}"
-                                        data-ubicacion="{{ dato.ubicacion }}"
-                                        data-fuente="{{ dato.fuente_o_dato }}"
-                                        data-lat="{{ dato.latitud }}"
-                                        data-lng="{{ dato.longitud }}"
-                                        data-subir="true"
-                                        onclick="enfocarDesdeElemento(this)">
-                                    📍 Ver en Google Maps
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-
-            <!-- CATÁLOGO 4: TIPO DE ORDEN -->
-            <div id="catalogo-orden" class="catalogo-panel cuadro-principal p-4" style="display: none;">
-                <div class="d-flex justify-content-between align-items-center border-bottom border-2 border-primary pb-2 mb-3">
-                    <div>
-                        <h4 class="fw-bold text-primary mb-0">Catálogo: Tipo de Orden, Movilidad y Seguridad</h4>
-                        <small class="text-muted">Caminos principales • Conjuntos y casa común • Transporte • Zonas de precaución</small>
-                    </div>
-                    <button class="btn btn-sm btn-outline-secondary" onclick="cerrarCatalogo()">Cerrar catálogo ✕</button>
-                </div>
-                <div class="alert alert-warning py-2 small">
-                    <strong>Nota:</strong> Los reportes de precaución diferencian entre percepción comunitaria y datos oficiales.
-                </div>
-                <div class="row g-3">
-                    {% for dato in datos if dato.categoria in ['movilidad', 'seguridad'] %}
-                    <div class="col-md-4 item-catalogo" data-texto="{{ dato.nombre|lower }} {{ dato.subcategoria|lower }} {{ dato.descripcion|lower }}">
-                        <div class="card h-100 {% if dato.categoria == 'seguridad' %}border-danger{% else %}border-primary{% endif %}">
-                            <div class="card-body">
-                                <span class="badge {% if dato.categoria == 'seguridad' %}bg-danger{% else %}bg-primary{% endif %} mb-2">{{ dato.subcategoria }}</span>
-                                <h6 class="card-title fw-bold">{{ dato.nombre }}</h6>
-                                <p class="card-text small">{{ dato.descripcion }}</p>
-                            </div>
-                            <div class="card-footer bg-white small">
-                                <div class="text-muted mb-2"><strong>Sector:</strong> {{ dato.ubicacion }}</div>
-                                <button class="btn btn-sm btn-outline-primary w-100"
-                                        data-nombre="{{ dato.nombre }}"
-                                        data-subcategoria="{{ dato.subcategoria }}"
-                                        data-descripcion="{{ dato.descripcion }}"
-                                        data-ubicacion="{{ dato.ubicacion }}"
-                                        data-fuente="{{ dato.fuente_o_dato }}"
-                                        data-lat="{{ dato.latitud }}"
-                                        data-lng="{{ dato.longitud }}"
-                                        data-subir="true"
-                                        onclick="enfocarDesdeElemento(this)">
-                                    📍 Ver en Google Maps
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-
+            {% include 'catalogos/recreacion.html' %}
+            {% include 'catalogos/comidas.html' %}
+            {% include 'catalogos/educacion.html' %}
+            {% include 'catalogos/orden.html' %}
         </div>
-
     </div>
 
-    <script>
-        let catalogoActual = null;
-        const LAT_BARRIO = 4.6097;
-        const LNG_BARRIO = -74.0817;
-
-        function enfocarDesdeElemento(elemento) {
-            const lat = elemento.dataset.lat;
-            const lng = elemento.dataset.lng;
-            const nombre = elemento.dataset.nombre;
-            const subcategoria = elemento.dataset.subcategoria;
-            const descripcion = elemento.dataset.descripcion;
-            const ubicacion = elemento.dataset.ubicacion;
-            const fuente = elemento.dataset.fuente;
-            const subirAlMapa = elemento.dataset.subir === "true";
-
-            const iframe = document.getElementById('iframeGoogleMaps');
-            const etiqueta = document.getElementById('etiquetaMapaActivo');
-            const panel = document.getElementById('panelCroquisDetalle');
-
-            iframe.src = `https://maps.google.com/maps?q=${lat},${lng}&z=18&output=embed`;
-            etiqueta.textContent = nombre;
-
-            panel.innerHTML = `
-                <span class="badge bg-dark mb-1">${subcategoria}</span>
-                <div class="fw-bold small">${nombre}</div>
-                <p class="small mb-1 mt-1">${descripcion}</p>
-                <div class="text-muted mb-2" style="font-size: 0.74rem;">
-                    <strong>Ubicación:</strong> ${ubicacion}<br>
-                    <strong>Coordenadas:</strong> ${lat}, ${lng}<br>
-                    <strong>Fuente:</strong> ${fuente}
-                </div>
-                <a href="https://www.google.com/maps/search/?api=1&query=${lat},${lng}" target="_blank" class="btn btn-primary btn-sm w-100">
-                    Abrir ruta en Google Maps ↗
-                </a>
-            `;
-
-            if (subirAlMapa) {
-                iframe.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        }
-
-        function centrarMapaGeneral() {
-            const iframe = document.getElementById('iframeGoogleMaps');
-            iframe.src = `https://maps.google.com/maps?q=${LAT_BARRIO},${LNG_BARRIO}&z=16&output=embed`;
-            document.getElementById('etiquetaMapaActivo').textContent = 'Sector General';
-            document.querySelectorAll('.chip-lugar').forEach(c => c.style.display = 'inline-block');
-        }
-
-        function abrirCatalogo(seccion) {
-            const contenedor = document.getElementById('contenedorCatalogo');
-            const paneles = document.querySelectorAll('.catalogo-panel');
-            const botones = document.querySelectorAll('.btn-categoria-principal');
-
-            if (catalogoActual === seccion) {
-                cerrarCatalogo();
-                return;
-            }
-
-            catalogoActual = seccion;
-
-            botones.forEach(b => b.classList.remove('activo'));
-            document.getElementById('btn-' + seccion).classList.add('activo');
-
-            paneles.forEach(p => p.style.display = 'none');
-            contenedor.style.display = 'block';
-            const panelElegido = document.getElementById('catalogo-' + seccion);
-            if (panelElegido) {
-                panelElegido.style.display = 'block';
-                panelElegido.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-
-            filtrarChipsPorSeccion(seccion);
-        }
-
-        function cerrarCatalogo() {
-            catalogoActual = null;
-            document.getElementById('contenedorCatalogo').style.display = 'none';
-            document.querySelectorAll('.catalogo-panel').forEach(p => p.style.display = 'none');
-            document.querySelectorAll('.btn-categoria-principal').forEach(b => b.classList.remove('activo'));
-            centrarMapaGeneral();
-        }
-
-        function filtrarChipsPorSeccion(seccion) {
-            const mapaCategorias = {
-                'recreacion': ['recreacion'],
-                'comidas': ['gastronomia'],
-                'turistica': ['referencia', 'historia'],
-                'orden': ['movilidad', 'seguridad']
-            };
-            const permitidas = mapaCategorias[seccion] || [];
-
-            document.querySelectorAll('.chip-lugar').forEach(chip => {
-                if (permitidas.includes(chip.dataset.categoria)) {
-                    chip.style.display = 'inline-block';
-                } else {
-                    chip.style.display = 'none';
-                }
-            });
-        }
-
-        function buscarEnCatalogo() {
-            const texto = document.getElementById('inputBuscador').value.toLowerCase().trim();
-
-            document.querySelectorAll('.chip-lugar').forEach(chip => {
-                if (texto === '' || chip.dataset.nombreBusqueda.includes(texto)) {
-                    chip.style.display = 'inline-block';
-                } else {
-                    chip.style.display = 'none';
-                }
-            });
-
-            document.querySelectorAll('.item-catalogo').forEach(card => {
-                if (texto === '' || card.dataset.texto.includes(texto)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='mapa_catalogos.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

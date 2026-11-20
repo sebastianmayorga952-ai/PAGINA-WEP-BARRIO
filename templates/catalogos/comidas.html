@@ -1,0 +1,34 @@
+<div id="catalogo-comidas" class="catalogo-panel cuadro-principal p-4" style="display: none;">
+    <div class="d-flex justify-content-between align-items-center border-bottom border-2 border-warning pb-2 mb-3">
+        <div>
+            <h4 class="fw-bold text-dark mb-0">Catálogo: Comidas, Tiendas y Centros Comerciales</h4>
+            <small class="text-muted">Establecimientos gastronómicos • Tiendas de barrio • Centros comerciales</small>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary" onclick="cerrarCatalogo()">Cerrar catálogo ✕</button>
+    </div>
+    <div class="d-flex flex-wrap gap-2 mb-3">
+        <button class="btn btn-sm btn-dark" onclick="filtrarSubComercio('todos')">Todos (18)</button>
+        <button class="btn btn-sm btn-outline-dark" onclick="filtrarSubComercio('comida')">Comidas (10)</button>
+        <button class="btn btn-sm btn-outline-dark" onclick="filtrarSubComercio('tienda')">Tiendas (5)</button>
+        <button class="btn btn-sm btn-outline-dark" onclick="filtrarSubComercio('centro comercial')">Centros comerciales (3)</button>
+    </div>
+    <div class="row g-3">
+        {% for dato in datos if dato.categoria == 'gastronomia' %}
+        <div class="col-md-4 item-catalogo item-comercio" data-subtipo="{% if 'Tienda' in dato.subcategoria %}tienda{% elif 'Centro comercial' in dato.subcategoria %}centro comercial{% else %}comida{% endif %}" data-texto="{{ dato.nombre|lower }} {{ dato.subcategoria|lower }} {{ dato.descripcion|lower }} {{ dato.ubicacion|lower }}">
+            <div class="card h-100 border-warning">
+                {% if dato.imagen_url %}<img src="{{ dato.imagen_url }}" class="card-img-top" alt="{{ dato.nombre }}" style="height: 150px; object-fit: cover;">{% endif %}
+                <div class="card-body">
+                    <span class="badge bg-warning text-dark mb-2">{{ dato.subcategoria }}</span>
+                    <h6 class="card-title fw-bold">{{ dato.nombre }}</h6>
+                    <p class="card-text small">{{ dato.descripcion }}</p>
+                </div>
+                <div class="card-footer bg-white small">
+                    <div class="text-muted mb-1"><strong>Dirección:</strong> {{ dato.ubicacion }}</div>
+                    <div class="text-muted mb-2" style="font-size: 0.72rem;"><strong>Fuente:</strong> {{ dato.fuente_o_dato }}</div>
+                    <button class="btn btn-sm btn-outline-dark w-100" data-nombre="{{ dato.nombre }}" data-subcategoria="{{ dato.subcategoria }}" data-descripcion="{{ dato.descripcion }}" data-ubicacion="{{ dato.ubicacion }}" data-fuente="{{ dato.fuente_o_dato }}" data-lat="{{ dato.latitud }}" data-lng="{{ dato.longitud }}" data-subir="true" onclick="enfocarDesdeElemento(this)">📍 Ver en Google Maps</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

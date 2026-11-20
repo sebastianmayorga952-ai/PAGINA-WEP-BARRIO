@@ -1,0 +1,40 @@
+<div id="catalogo-orden" class="catalogo-panel cuadro-principal p-4" style="display: none;">
+    <div class="d-flex justify-content-between align-items-center border-bottom border-2 border-primary pb-2 mb-3">
+        <div>
+            <h4 class="fw-bold text-primary mb-0">Catálogo: Vías de Acceso, Conectividad y Paraderos SITP</h4>
+            <small class="text-muted">Corredores arteriales • Vías locales • Paraderos SITP zonales</small>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary" onclick="cerrarCatalogo()">Cerrar catálogo ✕</button>
+    </div>
+    <div class="table-responsive mb-3">
+        <table class="table table-sm table-bordered bg-light small mb-1">
+            <thead class="table-dark">
+                <tr><th>Sector de origen</th><th>Orientación geográfica general hacia La Coruña</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Centro de Bogotá</strong></td><td>Desplazamiento hacia el sur por los corredores que conectan con Ciudad Bolívar.</td></tr>
+                <tr><td><strong>Kennedy y Bosa</strong></td><td>Conexión hacia el sector de Arborizadora mediante los corredores del suroccidente.</td></tr>
+                <tr><td><strong>Tunjuelito</strong></td><td>Conexión hacia el sector mediante los corredores viales del sur.</td></tr>
+                <tr><td><strong>Soacha</strong></td><td>Acceso a Bogotá por la Autopista Sur y conexión posterior hacia La Coruña.</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row g-3">
+        {% for dato in datos if dato.categoria in ['movilidad', 'seguridad'] %}
+        <div class="col-md-4 item-catalogo" data-texto="{{ dato.nombre|lower }} {{ dato.subcategoria|lower }} {{ dato.descripcion|lower }}">
+            <div class="card h-100 {% if 'Paradero' in dato.subcategoria %}border-info{% else %}border-primary{% endif %}">
+                <div class="card-body">
+                    <span class="badge {% if 'Paradero' in dato.subcategoria %}bg-info text-dark{% else %}bg-primary{% endif %} mb-2">{{ dato.subcategoria }}</span>
+                    <h6 class="card-title fw-bold">{{ dato.nombre }}</h6>
+                    <p class="card-text small">{{ dato.descripcion }}</p>
+                </div>
+                <div class="card-footer bg-white small">
+                    <div class="text-muted mb-1"><strong>Sector:</strong> {{ dato.ubicacion }}</div>
+                    <div class="text-muted mb-2" style="font-size: 0.72rem;"><strong>Fuente:</strong> {{ dato.fuente_o_dato }}</div>
+                    <button class="btn btn-sm btn-outline-primary w-100" data-nombre="{{ dato.nombre }}" data-subcategoria="{{ dato.subcategoria }}" data-descripcion="{{ dato.descripcion }}" data-ubicacion="{{ dato.ubicacion }}" data-fuente="{{ dato.fuente_o_dato }}" data-lat="{{ dato.latitud }}" data-lng="{{ dato.longitud }}" data-subir="true" onclick="enfocarDesdeElemento(this)">📍 Ver en Google Maps</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
