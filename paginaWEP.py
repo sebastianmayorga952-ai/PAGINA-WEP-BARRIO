@@ -55,4 +55,4 @@ class paginaWEP:
         vias = [r for r in registros_movilidad if 'Paradero' not in r.subcategoria]
         return render_template('mapa_vias.html', vias_principales=vias)
 
-mi_pagina = paginaWEP()
+mi_pagina = paginaWEP() 
