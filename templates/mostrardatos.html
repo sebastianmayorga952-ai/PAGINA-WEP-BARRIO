@@ -14,7 +14,6 @@
         .btn-categoria-principal:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.12); background-color: #f8f9fa; }
         .btn-categoria-principal.activo { background-color: #212529; color: #ffffff; }
         .btn-categoria-principal.activo small { color: #ced4da !important; }
-        .croquis-box { border: 1.5px dashed #6c757d; border-radius: 8px; background-color: #ffffff; padding: 8px; }
         .chip-lugar { cursor: pointer; font-size: 0.72rem; border: 1px solid #adb5bd; background: #fff; color: #212529; border-radius: 20px; padding: 2px 8px; transition: all 0.15s; }
         .chip-lugar:hover { background: #212529; color: #fff; }
         .contenedor-chips { max-height: 75px; overflow-y: auto; }
@@ -86,13 +85,15 @@
                     <div class="caja-panel p-3 d-flex flex-column justify-content-between">
                         <div>
                             <h6 class="fw-bold text-uppercase border-bottom pb-2">Croquis / Conectividad</h6>
-                            <div class="croquis-box mb-2 small">
-                                <div class="text-center text-muted mb-1" style="font-size: 0.72rem;"><em>(Polígono oficial pendiente)</em></div>
-                                <div class="border-start border-3 border-primary ps-2" style="font-size: 0.75rem;">
-                                    <strong>1. Red Arterial:</strong> Autopista Sur · Av. Villavicencio<br>
-                                    <strong>2. Conexión sector:</strong> Av. Jorge Gaitán Cortés (Cra 51)<br>
-                                    <strong>3. Vías locales:</strong> Cra 48B / 48G · Cll 58C / 58G Sur
-                                </div>
+                            <div class="d-grid gap-2 mb-3">
+                                <a href="{{ url_for('verPoligono') }}" class="btn btn-outline-primary btn-sm text-start fw-bold py-2">
+                                    🗺️ Polígono del Barrio
+                                    <span class="d-block fw-normal text-muted" style="font-size: 0.72rem;">Delimitación catastral oficial (002420)</span>
+                                </a>
+                                <a href="{{ url_for('verViasAcceso') }}" class="btn btn-outline-dark btn-sm text-start fw-bold py-2">
+                                    🛣️ Vías de Acceso
+                                    <span class="d-block fw-normal text-muted" style="font-size: 0.72rem;">Corredores arteriales e ingreso local</span>
+                                </a>
                             </div>
                         </div>
                         <div class="bg-white border border-dark rounded p-2" id="panelCroquisDetalle">

@@ -13,6 +13,8 @@ class paginaWEP:
 
         self.app.add_url_rule('/', view_func=self.buscarDatos)
         self.app.add_url_rule('/nuevo', view_func=self.agregar, methods=['GET', 'POST'])
+        self.app.add_url_rule('/poligono', view_func=self.verPoligono)
+        self.app.add_url_rule('/vias-acceso', view_func=self.verViasAcceso)
 
         with self.app.app_context():
             db.create_all()
@@ -44,5 +46,13 @@ class paginaWEP:
             return redirect(url_for('buscarDatos'))
 
         return render_template('CONTENIDO_PAGINA.html')
+
+    def verPoligono(self):
+        return render_template('mapa_poligono.html')
+
+    def verViasAcceso(self):
+        registros_movilidad = datos_de_barrio.query.filter_by(categoria='movilidad').all()
+        vias = [r for r in registros_movilidad if 'Paradero' not in r.subcategoria]
+        return render_template('mapa_vias.html', vias_principales=vias)
 
 mi_pagina = paginaWEP()

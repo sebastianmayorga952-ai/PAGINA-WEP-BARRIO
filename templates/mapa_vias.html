@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vías Principales de Acceso - Barrio La Coruña</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body { background-color: #f4f6f9; }
+        #mapaVias { width: 100%; height: 500px; border: 2px solid #212529; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container my-3">
+        <div class="bg-white border border-2 border-dark rounded-3 p-3 p-md-4 shadow-sm">
+            <div class="d-flex justify-content-between align-items-center border-bottom border-2 border-dark pb-3 mb-3">
+                <div>
+                    <h4 class="fw-bold mb-0">Vías Principales de Acceso: Barrio La Coruña</h4>
+                    <small class="text-muted">Red arterial metropolitana, corredores de conexión y accesos locales</small>
+                </div>
+                <a href="{{ url_for('buscarDatos') }}" class="btn btn-dark btn-sm fw-bold">← Volver a Guía Principal</a>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-lg-8">
+                    <div id="mapaVias" data-geojson="{{ url_for('static', filename='la_coruna.geojson') }}"></div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="border border-dark rounded p-3 bg-light h-100 d-flex flex-column justify-content-between" style="max-height: 500px; overflow-y: auto;">
+                        <div>
+                            <h6 class="fw-bold border-bottom pb-2">Convenciones Viales</h6>
+                            <div class="small mb-3 bg-white border rounded p-2">
+                                <div class="mb-1"><span style="color:#dc3545; font-weight:bold;">━━</span> <strong>Corredores Arteriales:</strong> Autopista Sur · Av. Villavicencio</div>
+                                <div class="mb-1"><span style="color:#fd7e14; font-weight:bold;">━━</span> <strong>Conexión Sector:</strong> Av. Jorge Gaitán Cortés (Cra. 51)</div>
+                                <div><span style="color:#198754; font-weight:bold;">━━</span> <strong>Acceso Local:</strong> Cra. 48B con Cl. 58G Sur</div>
+                            </div>
+
+                            <h6 class="fw-bold border-bottom pb-2">Ejes Definidos en Inventario</h6>
+                            <div class="list-group list-group-flush small">
+                                {% for via in vias_principales %}
+                                <button type="button" class="list-group-item list-group-item-action btn-via-item"
+                                    data-lat="{{ via.latitud }}"
+                                    data-lng="{{ via.longitud }}"
+                                    data-nombre="{{ via.nombre }}"
+                                    data-sub="{{ via.subcategoria }}"
+                                    data-desc="{{ via.descripcion }}"
+                                    data-ubicacion="{{ via.ubicacion }}">
+                                    <span class="badge {% if 'Local' in via.subcategoria %}bg-success{% elif 'Principal' in via.subcategoria %}bg-warning text-dark{% else %}bg-danger{% endif %} mb-1">
+                                        {{ via.subcategoria }}
+                                    </span>
+                                    <div class="fw-bold">{{ via.nombre }}</div>
+                                    <div class="text-muted" style="font-size: 0.74rem;">{{ via.ubicacion }}</div>
+                                </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <button class="btn btn-outline-dark btn-sm w-100 mt-3" id="btnVistaPanoramica">Ver panorámica de accesos</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const contenedorMapa = document.getElementById('mapaVias');
+        const urlGeojson = contenedorMapa.dataset.geojson;
+
+        const mapa = L.map('mapaVias').setView([4.5810, -74.1535], 14);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap · IDECA'
+        }).addTo(mapa);
+
+        // 1. Polígono oficial del barrio como referencia visual de destino
+        fetch(urlGeojson)
+            .then(r => r.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    style: { color: '#0d6efd', weight: 2, dashArray: '5, 5', fillColor: '#0d6efd', fillOpacity: 0.14 }
+                }).addTo(mapa).bindPopup("<strong>Destino: Barrio La Coruña</strong><br>Sector Catastral 002420");
+            });
+
+        // 2. Trazado de corredores principales de acceso
+        L.polyline([
+            [4.5915, -74.1625], [4.5880, -74.1580], [4.5845, -74.1535]
+        ], { color: '#dc3545', weight: 5, opacity: 0.85 })
+        .addTo(mapa).bindPopup("<strong>Autopista Sur</strong><br>Corredor arterial metropolitano.");
+
+        L.polyline([
+            [4.5840, -74.1555], [4.5815, -74.1510], [4.5790, -74.1465]
+        ], { color: '#dc3545', weight: 5, opacity: 0.85 })
+        .addTo(mapa).bindPopup("<strong>Avenida Ciudad de Villavicencio</strong><br>Corredor arterial suroccidental.");
+
+        L.polyline([
+            [4.5825, -74.1524], [4.5795, -74.1531], [4.5778, -74.1535], [4.5750, -74.1542]
+        ], { color: '#fd7e14', weight: 5, opacity: 0.9 })
+        .addTo(mapa).bindPopup("<strong>Av. Jorge Gaitán Cortés (Carrera 51)</strong><br>Vía principal de conexión al barrio.");
+
+        L.polyline([
+            [4.5784, -74.1533], [4.5782, -74.1521], [4.5773, -74.1521]
+        ], { color: '#198754', weight: 4, opacity: 0.95 })
+        .addTo(mapa).bindPopup("<strong>Ingreso Local: Cra. 48B con Cl. 58G Sur</strong><br>Acceso residencial interno.");
+
+        // 3. Marcadores y eventos leyendo directamente los botones HTML
+        document.querySelectorAll('.btn-via-item').forEach(btn => {
+            const lat = parseFloat(btn.dataset.lat);
+            const lng = parseFloat(btn.dataset.lng);
+            const { nombre, sub, desc, ubicacion } = btn.dataset;
+
+            const colorPunto = sub.includes('Local') ? '#198754' : (sub.includes('Principal') ? '#fd7e14' : '#dc3545');
+            L.circleMarker([lat, lng], {
+                radius: 7,
+                fillColor: colorPunto,
+                color: '#212529',
+                weight: 2,
+                fillOpacity: 0.95
+            }).addTo(mapa).bindPopup(`<strong>${nombre}</strong><br><small>${ubicacion}</small>`);
+
+            btn.addEventListener('click', () => {
+                mapa.flyTo([lat, lng], 16, { duration: 0.8 });
+                L.popup().setLatLng([lat, lng])
+                    .setContent(`<strong>${nombre}</strong><br><small class="text-muted">${ubicacion}</small><p class="small mb-0 mt-1">${desc}</p>`)
+                    .openOn(mapa);
+            });
+        });
+
+        document.getElementById('btnVistaPanoramica').addEventListener('click', () => {
+            mapa.flyTo([4.5810, -74.1535], 14, { duration: 0.8 });
+        });
+    </script>
+</body>
+</html>

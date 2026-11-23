@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polígono Oficial - Barrio La Coruña</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body { background-color: #f4f6f9; }
+        #mapaPoligono { width: 100%; height: 500px; border: 2px solid #212529; border-radius: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container my-3">
+        <div class="bg-white border border-2 border-dark rounded-3 p-3 p-md-4 shadow-sm">
+            <div class="d-flex justify-content-between align-items-center border-bottom border-2 border-dark pb-3 mb-3">
+                <div>
+                    <h4 class="fw-bold mb-0">Delimitación Territorial: Barrio La Coruña</h4>
+                    <small class="text-muted">Sector Catastral 002420 · UPZ 65 Arborizadora · Localidad Ciudad Bolívar</small>
+                </div>
+                <a href="{{ url_for('buscarDatos') }}" class="btn btn-dark btn-sm fw-bold">← Volver a Guía Principal</a>
+            </div>
+
+            <div class="row g-3">
+                <div class="col-lg-9">
+                    <div id="mapaPoligono"></div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="border border-dark rounded p-3 bg-light h-100 d-flex flex-column justify-content-between">
+                        <div>
+                            <span class="badge bg-primary mb-2">Cartografía Oficial IDECA</span>
+                            <h6 class="fw-bold border-bottom pb-2">Ficha del Polígono</h6>
+                            <ul class="small ps-3">
+                                <li><strong>Nombre oficial:</strong> LA CORUNA</li>
+                                <li><strong>Código Catastral:</strong> 002420</li>
+                                <li><strong>UPZ:</strong> 65 - Arborizadora</li>
+                                <li><strong>Sistema Ref.:</strong> WGS84 (EPSG:4326)</li>
+                            </ul>
+                            <p class="small text-muted">El contorno azul delimita el perímetro urbano oficial del barrio en Bogotá D.C.</p>
+                        </div>
+                        <button class="btn btn-primary btn-sm w-100" onclick="encuadrarPoligono()">Centrar Polígono</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const mapa = L.map('mapaPoligono').setView([4.578193, -74.152101], 16);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap · IDECA'
+        }).addTo(mapa);
+
+        let capaPoligono = null;
+
+        fetch("{{ url_for('static', filename='la_coruna.geojson') }}")
+            .then(r => r.json())
+            .then(data => {
+                capaPoligono = L.geoJSON(data, {
+                    style: {
+                        color: '#0d6efd',
+                        weight: 3.5,
+                        fillColor: '#0d6efd',
+                        fillOpacity: 0.2
+                    }
+                }).addTo(mapa);
+
+                capaPoligono.bindPopup("<strong>Barrio La Coruña</strong><br>Código Catastral: 002420");
+                encuadrarPoligono();
+            });
+
+        function encuadrarPoligono() {
+            if (capaPoligono && capaPoligono.getBounds().isValid()) {
+                mapa.fitBounds(capaPoligono.getBounds(), { padding: [25, 25] });
+            }
+        }
+    </script>
+</body>
+</html>
